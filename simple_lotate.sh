@@ -2,13 +2,17 @@
 # 
 # 更新日順にローテート
 #
-# 引数1 対象ディレクトリ
+# 引数1 対象ファイルパターン
 # 引数2 ローテート数
 
-dir=$1
+#echo $1
+#echo $2
+#exit
+
+filePattern=$1
 locateCount=$2
 
-fileCount=`ls $dir | wc -l`
+fileCount=`ls $filePattern | wc -l`
 
 # 規定ファイル以内ならReturn
 if [ $locateCount -ge $fileCount ] ; then 
@@ -17,9 +21,9 @@ if [ $locateCount -ge $fileCount ] ; then
 fi
 
 # 対象ファイルを取得
-targetFile=`ls -tr ${dir}* | awk 'NR == 1'`
+targetFile=`ls -tr ${filePattern} | awk 'NR == 1'`
 
 echo "削除対象 : $targetFile"
-rm $targetFile
+sudo rm $targetFile
 echo "削除しました。"
 
